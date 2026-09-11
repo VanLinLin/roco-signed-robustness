@@ -1,0 +1,17 @@
+{
+  "done": true,
+  "config_sha256": "8442c435788f44ace3f3132acbe9b31df88c7269c3d837c19ab056c78de40653",
+  "flow_comparisons": 19800,
+  "prediction_files_hash_verified": 23760,
+  "png_inputs": 12000,
+  "subset_partition_verified": true,
+  "cpu_only": true,
+  "model_inference": false,
+  "output_directory": "/ssd8/van/contest/RoCo/runs/untouched_pixels_waft_v1",
+  "finished_at": "2026-09-10T23:53:40+08:00",
+  "csv_row_counts_verified": true,
+  "single_scene_CI_not_reported_as_zero_width": true,
+  "report_sha256": "1264d51671b07fb2db237cf7b7b3a4e85156d5a8666af8d98511892039408a39",
+  "analysis_script_sha256": "77d894d3f20dbd4badaf80f6a81fcdf11930d911aa58e56d64dd9db475dd5d7a",
+  "summary_script_sha256": "d44af4d7ebd1e192d38c5e1c8a75b3de2d2fe7716eb644f56977992a26f0b35e"
+}

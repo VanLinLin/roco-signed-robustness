@@ -1,0 +1,130 @@
+{
+  "submission_id": 494,
+  "name": "RoCo-47 YF L WAFT-A2-AreaHalf-v1",
+  "submitted_at": "2026-09-10T15:31+02:00",
+  "visibility": "Private",
+  "track": "Optical Flow",
+  "clean": {
+    "1px_total": 3.34,
+    "EPE_total": 0.303,
+    "Fl_total": 1.195,
+    "WAUC_total": 94.996
+  },
+  "robustness_overall": {
+    "EPE": 1.905,
+    "Fl": 6.209,
+    "1px": 12.729
+  },
+  "robustness_per_corruption": {
+    "Brightness": [
+      0.124,
+      0.277,
+      1.163
+    ],
+    "Contrast": [
+      0.278,
+      0.758,
+      2.505
+    ],
+    "Defocus Blur": [
+      0.133,
+      0.294,
+      1.098
+    ],
+    "Elastic Transform": [
+      0.421,
+      0.83,
+      5.948
+    ],
+    "Fog": [
+      0.405,
+      2.163,
+      6.617
+    ],
+    "Frost": [
+      7.137,
+      21.481,
+      33.876
+    ],
+    "Gaussian Blur": [
+      0.155,
+      0.355,
+      1.374
+    ],
+    "Gaussian Noise": [
+      0.529,
+      1.832,
+      7.059
+    ],
+    "Glass Blur": [
+      0.154,
+      0.312,
+      1.172
+    ],
+    "Impulse Noise": [
+      0.794,
+      2.622,
+      8.732
+    ],
+    "JPEG Compression": [
+      1.088,
+      4.118,
+      23.262
+    ],
+    "Motion Blur": [
+      1.077,
+      5.958,
+      13.723
+    ],
+    "Pixelate": [
+      0.242,
+      0.376,
+      1.473
+    ],
+    "Rain": [
+      11.791,
+      19.88,
+      29.693
+    ],
+    "Saturate": [
+      0.135,
+      0.288,
+      1.056
+    ],
+    "Shot Noise": [
+      0.454,
+      1.522,
+      6.389
+    ],
+    "Snow": [
+      4.044,
+      29.586,
+      38.015
+    ],
+    "Spatter": [
+      6.937,
+      20.979,
+      40.999
+    ],
+    "Speckle Noise": [
+      0.488,
+      1.558,
+      6.797
+    ],
+    "Zoom Blur": [
+      1.708,
+      8.999,
+      23.635
+    ]
+  },
+  "local_pipeline_overall_delta": 1.8506,
+  "reference_leaderboard_2026_09_09": {
+    "WAFT-DAv2-a2 (authors, native res)": 3.298,
+    "RoCo-14 CAR-WAFT": {
+      "1px": 3.151,
+      "rEPE": 1.586,
+      "rFl": 5.091,
+      "r1px": 11.129
+    }
+  }
+}

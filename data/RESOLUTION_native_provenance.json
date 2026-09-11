@@ -1,0 +1,40 @@
+{
+  "model": "waft_dav2_a2",
+  "checkpoint": "/ssd8/van/contest/RoCo/weights/waft_dav2_a2-spring-04a4560e.ckpt",
+  "checkpoint_sha256": "04a4560e834020bbf0da9b605c0cbdbc63020b507ef165152c3bc344386866e4",
+  "settings": {
+    "output_stride": 112,
+    "lr": null,
+    "wdecay": null,
+    "warm_start": false,
+    "metric_interpolate_pred_to_target_size": false,
+    "feature_encoder": "dav2",
+    "iterative_module": "vits",
+    "gamma": 0.8,
+    "max_flow": 400,
+    "iters": 5,
+    "var_min": 0,
+    "var_max": 10
+  },
+  "precision": "fp16",
+  "resize": "native 1080x1920; model padding only",
+  "adapter_sha256": "f45de286c2fb12d288767161ae8e57c1c80008709a86eb9d970196b4daa0ece4",
+  "autocast": true,
+  "tf32": false,
+  "spatial_scale": 1.0,
+  "downsampling": "OpenCV INTER_AREA",
+  "flow_upsampling": "OpenCV INTER_LINEAR; x/y displacements scaled to original pixels",
+  "selection": "每個 (scene,camera) 等距 3 個相鄰對,FW 與 BW;推論前固定",
+  "n_keys": 120,
+  "conditions": [
+    "clean",
+    "gaussian_noise",
+    "shot_noise",
+    "speckle_noise",
+    "impulse_noise",
+    "rain"
+  ],
+  "metric": "clean 對 corrupted 的預測分歧、幅度比與 along-clean gain;不使用 test GT",
+  "sweep_adapter_sha256": "a04ff7159a34317428047d0b77e584dec70f45405be54a311af013e2775817ca",
+  "visible_devices": "6"
+}
