@@ -1,0 +1,23 @@
+{
+  "done": true,
+  "all_exact": true,
+  "totals": {
+    "spatter": {
+      "images": 2000,
+      "bad_channels": 0,
+      "channels": 12441600000
+    },
+    "frost": {
+      "images": 2000,
+      "bad_channels": 0,
+      "channels": 12441600000
+    }
+  },
+  "template_source": "0003 left; the 20 times specified in CONFIG.json; every channel identifiable",
+  "template_inference_excludes_other_scenes": true,
+  "unique_input_pngs": 6000,
+  "cpu_only": true,
+  "model_inference": false,
+  "finished_at": 1789029847.6265574,
+  "script_sha256": "3357f5d55e547e17ac1dc7f907ed54e810176b69cb3043a8f8dd50a45c68b39b"
+}

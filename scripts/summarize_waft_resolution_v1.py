@@ -46,11 +46,15 @@ def summarize(tag):
         g = gain(tot)
         orth = (tot['corrupt_sq_sum'] - 2 * g * tot['dot_sum']
                 + g * g * tot['clean_sq_sum']) / tot['corrupt_sq_sum']
+        per_scene = {sq: ratio(v) for sq, v in sorted(by_scene.items())}
         out[cond] = dict(
             ratio=ratio(tot), ratio_ci95=block_ci(by_scene, ratio),
             directional_gain=g, gain_ci95=block_ci(by_scene, gain),
             orthogonal_fraction=orth,
             delta=float(np.mean([r['delta'] for r in rows])),
+            per_scene_ratio=per_scene,
+            n_scenes_below_0p95=sum(1 for v in per_scene.values() if v < 0.95),
+            fp32_fallbacks=sum(r['fp32_fallback'] for r in rows),
             n_records=len(rows), n_scenes=len(by_scene))
     return out
 

@@ -1,0 +1,1334 @@
+{
+  "done": true,
+  "model": "public WAFT-DAv2-a2 Spring",
+  "config_sha256": "8442c435788f44ace3f3132acbe9b31df88c7269c3d837c19ab056c78de40653",
+  "scale": 0.5,
+  "tta": false,
+  "flow_storage_dtype": "float16",
+  "calculation_dtype": "float64",
+  "definition": {
+    "config_sha256": "8442c435788f44ace3f3132acbe9b31df88c7269c3d837c19ab056c78de40653",
+    "prediction_config": {
+      "adapter_sha256": "f45de286c2fb12d288767161ae8e57c1c80008709a86eb9d970196b4daa0ece4",
+      "autocast": true,
+      "checkpoint": "/ssd8/van/contest/RoCo/weights/waft_dav2_a2-spring-04a4560e.ckpt",
+      "checkpoint_sha256": "04a4560e834020bbf0da9b605c0cbdbc63020b507ef165152c3bc344386866e4",
+      "conditions": [
+        "brightness",
+        "clean",
+        "contrast",
+        "defocus_blur",
+        "elastic_transform",
+        "fog",
+        "frost",
+        "gaussian_blur",
+        "gaussian_noise",
+        "glass_blur",
+        "impulse_noise",
+        "jpeg_compression",
+        "motion_blur",
+        "pixelate",
+        "rain",
+        "saturate",
+        "shot_noise",
+        "snow",
+        "spatter",
+        "speckle_noise",
+        "zoom_blur"
+      ],
+      "downsampling": "OpenCV INTER_AREA",
+      "flow_export": "HDF5 flow dataset [1080,1920,2], gzip 5 + shuffle; same rounding on every condition",
+      "flow_units": "pixels of the original 1920x1080 images",
+      "flow_upsampling": "OpenCV INTER_LINEAR; x/y displacements scaled to original pixels",
+      "generator_sha256": "6576e28559f4e6c776a4a8b2365c2e296d6ca8935148b0ce019f12567920b035",
+      "inference_sha256": "1898f241c61807393f7daeffd7022af29463879fe3eaa24a0b6aef85761009b3",
+      "input_audit_sha256": "f76f04e33eaf3bfa031c17349783ab1ce1bbd9d4b0a46092d557738b22480500",
+      "memfof_commit": "a51de9fc59c6fe20ba08e079372c7b583d58a712",
+      "model": "waft_dav2_a2",
+      "output_dtype": "float16",
+      "precision": "fp16",
+      "ptlflow_commit": "b4e897c6b0c11d695fa9a35de1a728354890420d",
+      "resize": "uniform 960x540 input, restored 1920x1080 flow",
+      "scaled_inference_sha256": "1f74add76f896a3539160f19298cb5005455b081edf8bf6f4f53bb5e522f1f27",
+      "selection_sha256": "e540b8deea355dd5f62578e9a33866d5b278e1edef0b8ce3148a7024fdc74625",
+      "settings": {
+        "feature_encoder": "dav2",
+        "gamma": 0.8,
+        "iterative_module": "vits",
+        "iters": 5,
+        "lr": null,
+        "max_flow": 400,
+        "metric_interpolate_pred_to_target_size": false,
+        "output_stride": 112,
+        "var_max": 10,
+        "var_min": 0,
+        "warm_start": false,
+        "wdecay": null
+      },
+      "spatial_scale": 0.5,
+      "tf32": false,
+      "torch": "2.7.1+cu118"
+    },
+    "prediction_root": "/ssd8/van/contest/RoCo/runs/submission_v1/predictions",
+    "script_sha256": "77d894d3f20dbd4badaf80f6a81fcdf11930d911aa58e56d64dd9db475dd5d7a",
+    "journal_sha256": {
+      "left": "3819384f9eac9260b511784cff3e8f61ad968435d348fc3754450ce8e922c965",
+      "right": "8a8dc5a34c2d7f5d4694701fe69b55d28e1ac1f4d83e266170ba4953e53ba4f9"
+    },
+    "scenes": {
+      "0003": 131,
+      "0019": 111,
+      "0028": 39,
+      "0029": 135,
+      "0031": 73,
+      "0034": 47,
+      "0035": 120,
+      "0040": 111,
+      "0042": 116,
+      "0046": 117
+    },
+    "conditions": [
+      "spatter",
+      "frost",
+      "rain",
+      "snow",
+      "zoom_blur"
+    ],
+    "cpu_only": true,
+    "model_inference": false,
+    "primary_untouched": "native RGB bit-identical to corresponding clean at the SAME raster position in BOTH input frames",
+    "secondary_source": "native RGB bit-identical in the SOURCE frame only",
+    "local5": "primary mask AND a 5x5 neighborhood in both actual 960x540 uint8 INTER_AREA inputs is bit-identical; nearest block association to native output",
+    "correspondence_local5": "primary mask AND source local5 unchanged AND four pixels supporting the clean-predicted target correspondence are native+local5 unchanged; in-bounds only; predicted correspondence, not GT",
+    "epe": "float64 L2(clean predicted flow - corrupt predicted flow), native image pixels; not GT EPE or stereo disparity",
+    "motion_ratio": "sum(||corrupt flow||)/sum(||clean flow||) on the same subset; not mean individual ratios",
+    "empty_subset": "N=0: EPE/mean magnitudes/ratio are null, not zero",
+    "aggregation": "pixel-pooled within each subset across 3960 directed flow fields per corruption; scene-block bootstrap 10000 draws seed20260910"
+  },
+  "conditions": {
+    "spatter": {
+      "directed_flow_pairs": 3960,
+      "total_pixel_observations": 8211456000,
+      "unique_images": 2000,
+      "unique_image_rgb_identical_pixels": 3389493775,
+      "unique_image_rgb_identical_fraction": 0.817296917197145,
+      "unique_images_with_untouched_pixels": 2000,
+      "subsets": {
+        "all": {
+          "pixel_observations": 8211456000,
+          "fraction": 1.0,
+          "epe": 6.936440835222294,
+          "clean_mean_magnitude": 12.172585327275565,
+          "corrupt_mean_magnitude": 5.402828023921184,
+          "magnitude_ratio": 0.44385213811686053,
+          "epe_ci95": [
+            2.6569051435922657,
+            12.59683705743024
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.26691380852140123,
+            0.698691768131254
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.0,
+            1.0
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8211456000,
+            "epe_sum": 56958278715.03112,
+            "clean_mag_sum": 99954648821.1689,
+            "corrupt_mag_sum": 44365084593.99575
+          }
+        },
+        "source_untouched": {
+          "pixel_observations": 6711192412,
+          "fraction": 0.8172962763241988,
+          "epe": 6.91049338990756,
+          "clean_mean_magnitude": 12.168576382579294,
+          "corrupt_mean_magnitude": 5.426172819404086,
+          "magnitude_ratio": 0.4459168146548574,
+          "epe_ci95": [
+            2.6352381497358475,
+            12.560610749180887
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.2688950625707167,
+            0.7008752783156247
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.8170307682445691,
+            0.8178612353840219
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 6711192412,
+            "epe_sum": 46377650801.52377,
+            "clean_mag_sum": 81665657483.60857,
+            "corrupt_mag_sum": 36416089851.78535
+          }
+        },
+        "both_untouched": {
+          "pixel_observations": 6710233868,
+          "fraction": 0.8171795437983227,
+          "epe": 6.911450472805977,
+          "clean_mean_magnitude": 12.168808915445899,
+          "corrupt_mean_magnitude": 5.425454315689949,
+          "magnitude_ratio": 0.44584924896005285,
+          "epe_ci95": [
+            2.6355817674554394,
+            12.56240207323603
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.26889079958508716,
+            0.7008278200559365
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.8170307677469136,
+            0.8174961356231869
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 6710233868,
+            "epe_sum": 46377449039.62728,
+            "clean_mag_sum": 81655553717.64542,
+            "corrupt_mag_sum": 36406067298.42946
+          }
+        },
+        "local5_untouched": {
+          "pixel_observations": 2270597754,
+          "fraction": 0.27651585224349984,
+          "epe": 6.805088861353561,
+          "clean_mean_magnitude": 12.161710812533244,
+          "corrupt_mean_magnitude": 5.533794677873879,
+          "magnitude_ratio": 0.4550177818873173,
+          "epe_ci95": [
+            2.562661342079412,
+            12.40547040682544
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.2795375424983967,
+            0.7096235286614994
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.2763171474631939,
+            0.2769108588128607
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 2270597754,
+            "epe_sum": 15451619484.359814,
+            "clean_mag_sum": 27614353255.735497,
+            "corrupt_mag_sum": 12565021766.677584
+          }
+        },
+        "correspondence_local5_untouched": {
+          "pixel_observations": 1302770169,
+          "fraction": 0.15865276133733164,
+          "epe": 3.124554893301797,
+          "clean_mean_magnitude": 5.997423263419504,
+          "corrupt_mean_magnitude": 2.9654849071337046,
+          "magnitude_ratio": 0.4944598333122977,
+          "epe_ci95": [
+            1.4389004872885138,
+            5.658451436324528
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.3148505408212263,
+            0.7148549200649649
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.13243207525334097,
+            0.18717163686397578
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 1302770169,
+            "epe_sum": 4070576906.396559,
+            "clean_mag_sum": 7813264118.449559,
+            "corrupt_mag_sum": 3863345273.633526
+          }
+        },
+        "source_touched": {
+          "pixel_observations": 1500263588,
+          "fraction": 0.18270372367580123,
+          "epe": 7.052512637204221,
+          "clean_mean_magnitude": 12.190518708743278,
+          "corrupt_mean_magnitude": 5.298398765251112,
+          "magnitude_ratio": 0.4346327577883127,
+          "epe_ci95": [
+            2.746517232561938,
+            12.738847936189508
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.2576390672290504,
+            0.6893594433732785
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.18213876461597817,
+            0.18296923175543084
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 1500263588,
+            "epe_sum": 10580627913.507347,
+            "clean_mag_sum": 18288991337.560318,
+            "corrupt_mag_sum": 7948994742.2104025
+          }
+        },
+        "both_touched": {
+          "pixel_observations": 1501222132,
+          "fraction": 0.18282045620167728,
+          "epe": 7.0481439421010625,
+          "clean_mean_magnitude": 12.18946531193524,
+          "corrupt_mean_magnitude": 5.301691952118312,
+          "magnitude_ratio": 0.434940484791174,
+          "epe_ci95": [
+            2.742274117482393,
+            12.738847827208291
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.25804453105939124,
+            0.6893594345037025
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.18250386437681315,
+            0.18296923225308642
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 1501222132,
+            "epe_sum": 10580829675.403841,
+            "clean_mag_sum": 18299095103.523468,
+            "corrupt_mag_sum": 7959017295.566295
+          }
+        }
+      }
+    },
+    "frost": {
+      "directed_flow_pairs": 3960,
+      "total_pixel_observations": 8211456000,
+      "unique_images": 2000,
+      "unique_image_rgb_identical_pixels": 5811862,
+      "unique_image_rgb_identical_fraction": 0.0014013941936728395,
+      "unique_images_with_untouched_pixels": 449,
+      "subsets": {
+        "all": {
+          "pixel_observations": 8211456000,
+          "fraction": 1.0,
+          "epe": 7.134921067894904,
+          "clean_mean_magnitude": 12.172585327275565,
+          "corrupt_mean_magnitude": 5.166348222854221,
+          "magnitude_ratio": 0.4244248928186022,
+          "epe_ci95": [
+            2.7487782863260803,
+            12.970559031703155
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.2437308342436825,
+            0.6860995488816354
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.0,
+            1.0
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8211456000,
+            "epe_sum": 58588090412.49202,
+            "clean_mag_sum": 99954648821.1689,
+            "corrupt_mag_sum": 42423241112.64563
+          }
+        },
+        "source_untouched": {
+          "pixel_observations": 11482564,
+          "fraction": 0.0013983590729829156,
+          "epe": 0.6974187133805023,
+          "clean_mean_magnitude": 9.954413359979144,
+          "corrupt_mean_magnitude": 9.385663071117724,
+          "magnitude_ratio": 0.9428645096105783,
+          "epe_ci95": [
+            0.45402888205178316,
+            2.4816594477743465
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 9929,
+          "magnitude_ratio_ci95": [
+            0.7673363530856505,
+            1.0312124956433344
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 9929,
+          "fraction_ci95": [
+            1.2525512876636473e-09,
+            0.004374081610231367
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 4,
+          "flow_fields_with_pixels": 890,
+          "sufficient_statistics": {
+            "n": 11482564,
+            "epe_sum": 8008155.0111892745,
+            "clean_mag_sum": 114302188.48841555,
+            "corrupt_mag_sum": 107771476.89654583
+          }
+        },
+        "both_untouched": {
+          "pixel_observations": 6314608,
+          "fraction": 0.0007689997973562788,
+          "epe": 0.6449127756538721,
+          "clean_mean_magnitude": 9.445934444746397,
+          "corrupt_mean_magnitude": 8.907793724320856,
+          "magnitude_ratio": 0.9430293822624566,
+          "epe_ci95": [
+            0.2682065929757884,
+            0.6451023394226311
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 8951,
+          "magnitude_ratio_ci95": [
+            0.8656559636666126,
+            0.9430338069971834
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 8951,
+          "fraction_ci95": [
+            0.0,
+            0.002405459084611482
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 2,
+          "flow_fields_with_pixels": 842,
+          "sufficient_statistics": {
+            "n": 6314608,
+            "epe_sum": 4072371.372446146,
+            "clean_mag_sum": 59647373.212271154,
+            "corrupt_mag_sum": 56249225.513946265
+          }
+        },
+        "local5_untouched": {
+          "pixel_observations": 371860,
+          "fraction": 4.528551331213368e-05,
+          "epe": 0.37382613210094406,
+          "clean_mean_magnitude": 9.017290693462524,
+          "corrupt_mean_magnitude": 8.728659397157289,
+          "magnitude_ratio": 0.9679913506044014,
+          "epe_ci95": null,
+          "epe_ci95_status": "fewer than two supporting scenes; interval not estimable",
+          "epe_bootstrap_valid_draws": 6533,
+          "magnitude_ratio_ci95": null,
+          "magnitude_ratio_ci95_status": "fewer than two supporting scenes; interval not estimable",
+          "magnitude_ratio_bootstrap_valid_draws": 6533,
+          "fraction_ci95": [
+            0.0,
+            0.00014172600056589784
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 1,
+          "flow_fields_with_pixels": 278,
+          "sufficient_statistics": {
+            "n": 371860,
+            "epe_sum": 139010.98548305707,
+            "clean_mag_sum": 3353169.717270974,
+            "corrupt_mag_sum": 3245839.2834269092
+          }
+        },
+        "correspondence_local5_untouched": {
+          "pixel_observations": 604663,
+          "fraction": 7.363651464490584e-05,
+          "epe": 0.6091435381368197,
+          "clean_mean_magnitude": 10.58357992188384,
+          "corrupt_mean_magnitude": 10.088450574088219,
+          "magnitude_ratio": 0.9532172146428606,
+          "epe_ci95": null,
+          "epe_ci95_status": "fewer than two supporting scenes; interval not estimable",
+          "epe_bootstrap_valid_draws": 6533,
+          "magnitude_ratio_ci95": null,
+          "magnitude_ratio_ci95_status": "fewer than two supporting scenes; interval not estimable",
+          "magnitude_ratio_bootstrap_valid_draws": 6533,
+          "fraction_ci95": [
+            0.0,
+            0.00023045358113316162
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 1,
+          "flow_fields_with_pixels": 328,
+          "sufficient_statistics": {
+            "n": 604663,
+            "epe_sum": 368326.55920042377,
+            "clean_mag_sum": 6399499.186306049,
+            "corrupt_mag_sum": 6100112.789479905
+          }
+        },
+        "source_touched": {
+          "pixel_observations": 8199973436,
+          "fraction": 0.9986016409270171,
+          "epe": 7.143935613291032,
+          "clean_mean_magnitude": 12.175691471676675,
+          "corrupt_mean_magnitude": 5.1604398436186685,
+          "magnitude_ratio": 0.42383135739132205,
+          "epe_ci95": [
+            2.7488372964977796,
+            12.973240633071882
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.2432796085509884,
+            0.6855120250536939
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.9956259183897687,
+            0.9999999987474487
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8199973436,
+            "epe_sum": 58580082257.480835,
+            "clean_mag_sum": 99840346632.68048,
+            "corrupt_mag_sum": 42315469635.74908
+          }
+        },
+        "both_touched": {
+          "pixel_observations": 8205141392,
+          "fraction": 0.9992310002026438,
+          "epe": 7.139915723845893,
+          "clean_mean_magnitude": 12.174683734926749,
+          "corrupt_mean_magnitude": 5.163468837775231,
+          "magnitude_ratio": 0.42411523372572424,
+          "epe_ci95": [
+            2.7487975465276913,
+            12.970579304035253
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.2435072639606301,
+            0.6856955416311755
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.9975945409153886,
+            1.0
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8205141392,
+            "epe_sum": 58584018041.119576,
+            "clean_mag_sum": 99895001447.95662,
+            "corrupt_mag_sum": 42366991887.13168
+          }
+        }
+      }
+    },
+    "rain": {
+      "directed_flow_pairs": 3960,
+      "total_pixel_observations": 8211456000,
+      "unique_images": 2000,
+      "unique_image_rgb_identical_pixels": 301760008,
+      "unique_image_rgb_identical_fraction": 0.07276234760802469,
+      "unique_images_with_untouched_pixels": 2000,
+      "subsets": {
+        "all": {
+          "pixel_observations": 8211456000,
+          "fraction": 1.0,
+          "epe": 11.791959668966744,
+          "clean_mean_magnitude": 12.172585327275565,
+          "corrupt_mean_magnitude": 22.5727863852451,
+          "magnitude_ratio": 1.8543954121780042,
+          "epe_ci95": [
+            2.720223645331349,
+            22.55998463297374
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.038852899107204,
+            3.10998009992447
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.0,
+            1.0
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8211456000,
+            "epe_sum": 96829157975.49498,
+            "clean_mag_sum": 99954648821.1689,
+            "corrupt_mag_sum": 185355442199.83917
+          }
+        },
+        "source_untouched": {
+          "pixel_observations": 597345718,
+          "fraction": 0.07274540812250592,
+          "epe": 9.753933687649956,
+          "clean_mean_magnitude": 11.498272425314672,
+          "corrupt_mean_magnitude": 20.117262316900195,
+          "magnitude_ratio": 1.7495899881976964,
+          "epe_ci95": [
+            2.0362013857120975,
+            18.575704419460077
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0233900635713056,
+            2.6043750132902974
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.06626538428919221,
+            0.07881054463193707
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 597345718,
+            "epe_sum": 5826470521.973651,
+            "clean_mag_sum": 6868443797.659194,
+            "corrupt_mag_sum": 12016960502.883091
+          }
+        },
+        "both_untouched": {
+          "pixel_observations": 55626882,
+          "fraction": 0.006774301902123083,
+          "epe": 6.839971856400668,
+          "clean_mean_magnitude": 10.436968856543706,
+          "corrupt_mean_magnitude": 16.377760766777843,
+          "magnitude_ratio": 1.5692066338311832,
+          "epe_ci95": [
+            1.3669230361861242,
+            12.526782963830847
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0098804321223533,
+            2.1364322619670175
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.005363467940119967,
+            0.008226984719426005
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 55626882,
+            "epe_sum": 380486307.3393209,
+            "clean_mag_sum": 580576035.0206317,
+            "corrupt_mag_sum": 911043765.5977806
+          }
+        },
+        "local5_untouched": {
+          "pixel_observations": 215392,
+          "fraction": 2.6230670906596833e-05,
+          "epe": 0.5401783181782935,
+          "clean_mean_magnitude": 8.588818687242357,
+          "corrupt_mean_magnitude": 8.607129891906279,
+          "magnitude_ratio": 1.0021319817463514,
+          "epe_ci95": [
+            0.20654989015363215,
+            1.4611271564487593
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.9800478764344075,
+            1.0121397660159344
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            3.74147238823533e-08,
+            6.52964768951562e-05
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 8,
+          "flow_fields_with_pixels": 652,
+          "sufficient_statistics": {
+            "n": 215392,
+            "epe_sum": 116350.088309059,
+            "clean_mag_sum": 1849962.8346825058,
+            "corrupt_mag_sum": 1853906.9216774774
+          }
+        },
+        "correspondence_local5_untouched": {
+          "pixel_observations": 167474,
+          "fraction": 2.0395164998752963e-05,
+          "epe": 0.30461991697227814,
+          "clean_mean_magnitude": 5.0997373036594045,
+          "corrupt_mean_magnitude": 5.120095779417189,
+          "magnitude_ratio": 1.0039920636192723,
+          "epe_ci95": [
+            0.2062007222893373,
+            1.1550916935227116
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            0.9658434670948933,
+            1.0101977606643258
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.4878673467785003e-08,
+            5.423382577816514e-05
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 7,
+          "flow_fields_with_pixels": 656,
+          "sufficient_statistics": {
+            "n": 167474,
+            "epe_sum": 51015.915975015305,
+            "clean_mag_sum": 854073.405193055,
+            "corrupt_mag_sum": 857482.9205621142
+          }
+        },
+        "source_touched": {
+          "pixel_observations": 7614110282,
+          "fraction": 0.927254591877494,
+          "epe": 11.951847830291426,
+          "clean_mean_magnitude": 12.225486836402732,
+          "corrupt_mean_magnitude": 22.765428300498062,
+          "magnitude_ratio": 1.8621285683864546,
+          "epe_ci95": [
+            2.7633009115031726,
+            22.9000425062701
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0398930787429603,
+            3.16185332807111
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.921189455368063,
+            0.9337346157108077
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 7614110282,
+            "epe_sum": 91002687453.52133,
+            "clean_mag_sum": 93086205023.50969,
+            "corrupt_mag_sum": 173338481696.9561
+          }
+        },
+        "both_touched": {
+          "pixel_observations": 8155829118,
+          "fraction": 0.9932256980978769,
+          "epe": 11.825734731897757,
+          "clean_mean_magnitude": 12.184423109948275,
+          "corrupt_mean_magnitude": 22.615039595075707,
+          "magnitude_ratio": 1.8560615788704102,
+          "epe_ci95": [
+            2.7252807258023397,
+            22.65925833892136
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0389794710064573,
+            3.1208968894568554
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.991773015280574,
+            0.99463653205988
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8155829118,
+            "epe_sum": 96448671668.15565,
+            "clean_mag_sum": 99374072786.14825,
+            "corrupt_mag_sum": 184444398434.2414
+          }
+        }
+      }
+    },
+    "snow": {
+      "directed_flow_pairs": 3960,
+      "total_pixel_observations": 8211456000,
+      "unique_images": 2000,
+      "unique_image_rgb_identical_pixels": 586226330,
+      "unique_image_rgb_identical_fraction": 0.14135472849151234,
+      "unique_images_with_untouched_pixels": 2000,
+      "subsets": {
+        "all": {
+          "pixel_observations": 8211456000,
+          "fraction": 1.0,
+          "epe": 4.042707059331883,
+          "clean_mean_magnitude": 12.172585327275565,
+          "corrupt_mean_magnitude": 14.767822488425079,
+          "magnitude_ratio": 1.2132034478603546,
+          "epe_ci95": [
+            1.6640298863559493,
+            6.47999566579535
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0734739823478785,
+            1.441356371385912
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.0,
+            1.0
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8211456000,
+            "epe_sum": 33196511138.59314,
+            "clean_mag_sum": 99954648821.1689,
+            "corrupt_mag_sum": 121265324579.51305
+          }
+        },
+        "source_untouched": {
+          "pixel_observations": 1160760386,
+          "fraction": 0.1413586562480515,
+          "epe": 2.556494199088308,
+          "clean_mean_magnitude": 10.876504761818952,
+          "corrupt_mean_magnitude": 12.471477236957922,
+          "magnitude_ratio": 1.1466438446970562,
+          "epe_ci95": [
+            1.0123512214513248,
+            4.4849886686038
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0346918126272964,
+            1.3263249018864682
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.11997083452520649,
+            0.1668779833710707
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 1160760386,
+            "epe_sum": 2967477193.340505,
+            "clean_mag_sum": 12625015865.659805,
+            "corrupt_mag_sum": 14476396731.561491
+          }
+        },
+        "both_untouched": {
+          "pixel_observations": 285699762,
+          "fraction": 0.03479282626613356,
+          "epe": 2.6894523649937967,
+          "clean_mean_magnitude": 7.639135374474517,
+          "corrupt_mean_magnitude": 9.692096890315211,
+          "magnitude_ratio": 1.2687426541360272,
+          "epe_ci95": [
+            0.8818927309286932,
+            4.685974886196651
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0411854355527332,
+            1.6363157299102995
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.02464902260196372,
+            0.04567235248443443
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 285699762,
+            "epe_sum": 768375900.5890648,
+            "clean_mag_sum": 2182499158.3731503,
+            "corrupt_mag_sum": 2769029774.843996
+          }
+        },
+        "local5_untouched": {
+          "pixel_observations": 1996650,
+          "fraction": 0.00024315419823232323,
+          "epe": 2.1035334140777646,
+          "clean_mean_magnitude": 3.049529200919268,
+          "corrupt_mean_magnitude": 4.9216070366187274,
+          "magnitude_ratio": 1.6138907721018476,
+          "epe_ci95": [
+            0.14679225605783403,
+            4.261946653371807
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0013897941701586,
+            2.314398810611512
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.2498576036479104e-05,
+            0.00050254289286887
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 9,
+          "flow_fields_with_pixels": 1934,
+          "sufficient_statistics": {
+            "n": 1996650,
+            "epe_sum": 4200019.9912183685,
+            "clean_mag_sum": 6088842.4790154565,
+            "corrupt_mag_sum": 9826726.689664783
+          }
+        },
+        "correspondence_local5_untouched": {
+          "pixel_observations": 1764965,
+          "fraction": 0.00021493934814970694,
+          "epe": 1.8968994013528073,
+          "clean_mean_magnitude": 3.613753755718033,
+          "corrupt_mean_magnitude": 5.267837706017813,
+          "magnitude_ratio": 1.4577190539567142,
+          "epe_ci95": [
+            0.14927507584537641,
+            3.796665208767228
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0026748926641385,
+            1.9036000923723189
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            9.276216334425465e-06,
+            0.00045031202255537095
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 9,
+          "flow_fields_with_pixels": 2072,
+          "sufficient_statistics": {
+            "n": 1764965,
+            "epe_sum": 3347961.0519086574,
+            "clean_mag_sum": 6378148.897460878,
+            "corrupt_mag_sum": 9297549.17680173
+          }
+        },
+        "source_touched": {
+          "pixel_observations": 7050695614,
+          "fraction": 0.8586413437519484,
+          "epe": 4.287383203045849,
+          "clean_mean_magnitude": 12.385959873534414,
+          "corrupt_mean_magnitude": 15.14587122948683,
+          "magnitude_ratio": 1.2228257950237371,
+          "epe_ci95": [
+            1.7698657663137105,
+            6.77596975290466
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0792339906285795,
+            1.4617966150753587
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.8331220166289293,
+            0.8800291654747935
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 7050695614,
+            "epe_sum": 30229033945.252636,
+            "clean_mag_sum": 87329632955.5091,
+            "corrupt_mag_sum": 106788927847.95157
+          }
+        },
+        "both_touched": {
+          "pixel_observations": 7925756238,
+          "fraction": 0.9652071737338664,
+          "epe": 4.091487835889721,
+          "clean_mean_magnitude": 12.336002613104306,
+          "corrupt_mean_magnitude": 14.950787186279983,
+          "magnitude_ratio": 1.2119636850918014,
+          "epe_ci95": [
+            1.681253363080936,
+            6.543340170602849
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0740765467184563,
+            1.4365322733358201
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.9543276475155656,
+            0.9753509773980362
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 7925756238,
+            "epe_sum": 32428135238.004078,
+            "clean_mag_sum": 97772149662.79575,
+            "corrupt_mag_sum": 118496294804.66905
+          }
+        }
+      }
+    },
+    "zoom_blur": {
+      "directed_flow_pairs": 3960,
+      "total_pixel_observations": 8211456000,
+      "unique_images": 2000,
+      "unique_image_rgb_identical_pixels": 56496472,
+      "unique_image_rgb_identical_fraction": 0.01362279899691358,
+      "unique_images_with_untouched_pixels": 2000,
+      "subsets": {
+        "all": {
+          "pixel_observations": 8211456000,
+          "fraction": 1.0,
+          "epe": 1.7099337835954744,
+          "clean_mean_magnitude": 12.172585327275565,
+          "corrupt_mean_magnitude": 13.18615201341213,
+          "magnitude_ratio": 1.0832663447316675,
+          "epe_ci95": [
+            0.8853141401834788,
+            2.7556453291135354
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0729624614511606,
+            1.0943585457019995
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            1.0,
+            1.0
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8211456000,
+            "epe_sum": 14041046026.90776,
+            "clean_mag_sum": 99954648821.1689,
+            "corrupt_mag_sum": 108277507067.44511
+          }
+        },
+        "source_untouched": {
+          "pixel_observations": 111965099,
+          "fraction": 0.013635230950515963,
+          "epe": 1.3211775350178503,
+          "clean_mean_magnitude": 12.704490432513369,
+          "corrupt_mean_magnitude": 13.874900439352537,
+          "magnitude_ratio": 1.0921256946948341,
+          "epe_ci95": [
+            0.9718679582138687,
+            2.4434730977002874
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0836030719040608,
+            1.1328062811877109
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.0033878937381665603,
+            0.02924040191129372
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 111965099,
+            "epe_sum": 147925773.50484958,
+            "clean_mag_sum": 1422459529.0209122,
+            "corrupt_mag_sum": 1553504601.3072503
+          }
+        },
+        "both_untouched": {
+          "pixel_observations": 62111162,
+          "fraction": 0.007563964539297294,
+          "epe": 0.5494941049147776,
+          "clean_mean_magnitude": 4.842951815334161,
+          "corrupt_mean_magnitude": 5.347345973809793,
+          "magnitude_ratio": 1.1041501500961821,
+          "epe_ci95": [
+            0.47379957961333424,
+            1.359954830208326
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.092086544843249,
+            1.1961141908772015
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.000624501412457418,
+            0.020025967318338233
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3288,
+          "sufficient_statistics": {
+            "n": 62111162,
+            "epe_sum": 34129717.36840674,
+            "clean_mag_sum": 300801364.7604142,
+            "corrupt_mag_sum": 332129872.04934776
+          }
+        },
+        "local5_untouched": {
+          "pixel_observations": 15214,
+          "fraction": 1.852777388078314e-06,
+          "epe": 0.10261427369139672,
+          "clean_mean_magnitude": 0.5986776838402723,
+          "corrupt_mean_magnitude": 0.6957674931304477,
+          "magnitude_ratio": 1.1621737571164905,
+          "epe_ci95": [
+            0.10221945774068396,
+            1.6039019262766967
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 8972,
+          "magnitude_ratio_ci95": [
+            1.1619086280204696,
+            1.3078432945471734
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 8972,
+          "fraction_ci95": [
+            0.0,
+            5.6255463562574165e-06
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 2,
+          "flow_fields_with_pixels": 366,
+          "sufficient_statistics": {
+            "n": 15214,
+            "epe_sum": 1561.1735599409099,
+            "clean_mag_sum": 9108.282281945903,
+            "corrupt_mag_sum": 10585.406640486632
+          }
+        },
+        "correspondence_local5_untouched": {
+          "pixel_observations": 2275,
+          "fraction": 2.7705196252649957e-07,
+          "epe": 0.10705766615507256,
+          "clean_mean_magnitude": 0.6780896517579336,
+          "corrupt_mean_magnitude": 0.7799340841710799,
+          "magnitude_ratio": 1.150193167155872,
+          "epe_ci95": null,
+          "epe_ci95_status": "fewer than two supporting scenes; interval not estimable",
+          "epe_bootstrap_valid_draws": 6551,
+          "magnitude_ratio_ci95": null,
+          "magnitude_ratio_ci95_status": "fewer than two supporting scenes; interval not estimable",
+          "magnitude_ratio_bootstrap_valid_draws": 6551,
+          "fraction_ci95": [
+            0.0,
+            8.413541193289404e-07
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 1,
+          "flow_fields_with_pixels": 299,
+          "sufficient_statistics": {
+            "n": 2275,
+            "epe_sum": 243.5561905027901,
+            "clean_mag_sum": 1542.6539577492988,
+            "corrupt_mag_sum": 1774.350041489207
+          }
+        },
+        "source_touched": {
+          "pixel_observations": 8099490901,
+          "fraction": 0.986364769049484,
+          "epe": 1.7153078413468683,
+          "clean_mean_magnitude": 12.165232419729337,
+          "corrupt_mean_magnitude": 13.17663094762675,
+          "magnitude_ratio": 1.0831384467638403,
+          "epe_ci95": [
+            0.8835887161636564,
+            2.7711614959595043
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0726984962401402,
+            1.0944418889499428
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.9707595980887063,
+            0.9966121062618334
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8099490901,
+            "epe_sum": 13893120253.402912,
+            "clean_mag_sum": 98532189292.14798,
+            "corrupt_mag_sum": 106724002466.13786
+          }
+        },
+        "both_touched": {
+          "pixel_observations": 8149344838,
+          "fraction": 0.9924360354607027,
+          "epe": 1.718778207080621,
+          "clean_mean_magnitude": 12.228448965826972,
+          "corrupt_mean_magnitude": 13.245896368509491,
+          "magnitude_ratio": 1.0832033077560226,
+          "epe_ci95": [
+            0.8880015966953058,
+            2.7724973182749033
+          ],
+          "epe_ci95_status": "conditional on valid bootstrap draws",
+          "epe_bootstrap_valid_draws": 10000,
+          "magnitude_ratio_ci95": [
+            1.0728527553427711,
+            1.0943435676650655
+          ],
+          "magnitude_ratio_ci95_status": "conditional on valid bootstrap draws",
+          "magnitude_ratio_bootstrap_valid_draws": 10000,
+          "fraction_ci95": [
+            0.9799740326816617,
+            0.9993754985875426
+          ],
+          "fraction_ci95_status": "conditional on valid bootstrap draws",
+          "fraction_bootstrap_valid_draws": 10000,
+          "scenes_with_pixels": 10,
+          "flow_fields_with_pixels": 3960,
+          "sufficient_statistics": {
+            "n": 8149344838,
+            "epe_sum": 14006916309.539354,
+            "clean_mag_sum": 99653847456.40848,
+            "corrupt_mag_sum": 107945377195.39577
+          }
+        }
+      }
+    }
+  },
+  "model_inference": false,
+  "cpu_only": true
+}

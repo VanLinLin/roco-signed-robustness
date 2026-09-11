@@ -11,9 +11,10 @@ official test split, which has no public ground truth.
 
 ```
 scripts/     inference and statistics used to produce the paper's tables
-analysis/    the self-contained analysis scripts for the two image-side studies,
-             with the config each was run under
-data/        every computed statistic the paper cites, as JSON
+analysis/    one directory per standalone study, each with the analyze/summarize
+             pair and the config it was run under; summarize.py imports its
+             sibling analyze.py, so keep the directories intact
+data/        the table-level statistics, as JSON and CSV
 ```
 
 ## Which file backs which table
@@ -24,13 +25,20 @@ data/        every computed statistic the paper cites, as JSON
 | Table 1, `Ratio` column | `data/LOCAL_RECOMPUTE.json` |
 | Table 1, `Ratio 95% CI` | `data/SCENE_CI.json` |
 | Table 1, `g` column | `data/SIGNED_AXES.json` → `by_condition[c].directional_gain` |
-| Table 2 (untouched pixels under spatter) | `data/UNTOUCHED_PIXELS.json` |
+| Table 2 (untouched pixels under spatter) | `data/UNTOUCHED_PIXELS_SUMMARY.json` and `data/UNTOUCHED_PIXELS_subsets.csv`; the run's completion audit is `data/UNTOUCHED_PIXELS_verification.json` |
 | Table 3 (cross-architecture) | `data/CROSS_ARCH_TABLE.json` |
 | Table 4 (estimators, orthogonal and one-sided fractions) | `data/SIGNED_AXES.json` |
-| Table 5 (resolution control) | `data/RESOLUTION_TABLE.json`, with the two run provenance files |
-| Section 6.1–6.2 image statistics | `data/CORRUPTION_AXES_SUMMARY.json` |
+| Table 5 (resolution control) | `data/RESOLUTION_TABLE.json`, with `RESOLUTION_native_provenance.json` and `RESOLUTION_half_provenance.json` |
+| Section 6.1, additive template test | `data/TEMPLATE_FIT.json`; the extension to all 4,000 official images is `data/GLOBAL_TEMPLATE_VERIFIED.json` |
+| Section 6.1, the alignment statistic | `data/CORRUPTION_AXES_V1_SUMMARY.json`, `data/CORRUPTION_AXES_V1_axes.csv` |
+| Section 6.2, `S` and `rho_time` | `data/CORRUPTION_AXES_SUMMARY.json`, `data/CORRUPTION_AXES_V2_axes.csv` |
 | Zoom-blur global-scale test | `data/zoom_scale_v1.json` |
 | Appendix C, training branches | not included; the branch checkpoints are not released |
+
+Per-record intermediates (one row per flow field) stay in the run directories and
+are not part of this release. The per-scene ratios and below-0.95 counts the paper
+quotes for the resolution control *are* included, under `per_scene_ratio` and
+`n_scenes_below_0p95` in `data/RESOLUTION_TABLE.json`.
 
 ## Definitions, in one place
 
@@ -59,6 +67,9 @@ significance tests.
 The statistics scripts need `numpy`, `h5py` and `scipy`. The inference scripts
 additionally need `torch`, `ptlflow` and the published Spring checkpoints for
 WAFT, DPFlow and MEMFOF, which we do not redistribute.
+
+`scripts/` carries `run_e0.py` and `strong_models.py` because the other scripts
+import `ROOT` and `sha256` from them.
 
 ```bash
 # Table 1 ratio and CI, from the submitted prediction file
